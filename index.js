@@ -32,12 +32,30 @@ app.post("/imc",(req, res)=>{
     
 });
 
-
-
-
-
-
-
-app.listen(port,()=>{
-    console.log(`Servidor rodando em http://localhost:${port}`);
+app.post("/media", (req, res) => {
+    const {nome, nota1, nota2} = req.body;
+    if(!nome || !nota1 || !nota2){
+        return res.status(400).json({erro: "Nome e ambas as notas são obrigatórias"});
+    }
+    
+    const media = (nota1 + nota2) / 2;
+    const aprovado = media >= 7;
+    
+    res.json({
+        nome,
+        nota1,
+        nota2,
+        media,
+        status: aprovado ? "Aprovado" : "Reprovado"
     });
+});
+
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+});
+
+
+
+
+
+
