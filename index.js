@@ -50,35 +50,7 @@ app.post("/media", (req, res) => {
     });
 });
 
-app.post("/alistamento", (req, res) =>{
-    const {nome, idade, sexo} = req.body;
-    if(!nome || !idade || !sexo){
-        return res.status(400).json({erro: "Nome, idade e sexo são obrigatórios"});
-    }
-    
-    if (sexo.toLowerCase() === "m" && idade < 18) {
-        return res.status(400).json({erro: "Você precisa ter 18 anos ou mais para se alistar"});
-    }
- 
-  if (sexo.toLowerCase() === "m" && idade >= 18) {
-        return res.status(400).json({erro: "alistamento concluido"});
-    }
-    if (sexo.toLowerCase() === "f" && idade >= 18) {
-        return res.status(400).json({erro: "busque um curso preparativo"});
-    }
-    
-    const podeAlistar = idade >= 18 && (sexo.toLowerCase() === "masculino" || sexo.toLowerCase() === "feminino");
-     
-    
-    res.json({
-        nome,
-        idade,
-        sexo,
-        status: podeAlistar ? "Pode se alistar" : "Não pode se alistar"
-    });
 
-
-})
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
